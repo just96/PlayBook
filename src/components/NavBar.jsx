@@ -3,7 +3,15 @@ export default function NavBar({ onOpen }) {
     <>
       <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-2xl">PlayBook</a>
+          <div className="navbar-start flex flex-col items-center leading-none">
+            <label className="swap swap-flip text-6xl text-center ">
+              {/* this hidden checkbox controls the state */}
+              <input type="checkbox" />
+              <div className="swap-on">PlayBook</div>
+              <div className="swap-off">📖</div>
+            </label>
+            <span className="text-2xl animate-bounce mt-5">⬆️</span>
+          </div>
         </div>
         <div className="navbar-center">
           <div className="flex gap-2">

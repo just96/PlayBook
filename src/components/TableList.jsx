@@ -44,7 +44,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                 <button
                   onClick={(e) => {
                     e.stopPropagation(); // evita disparar onDetails
-                    onDelete(tactic.id);
+                    onDelete(tactic);
                   }}
                   className="btn btn-error btn-sm font-bold"
                 >

@@ -11,7 +11,7 @@ export default function Toast({ message, onClose }) {
   if (!message) return null;
 
   return (
-    <div role="alert" className="alert alert-success ">
+    <div className="alert alert-success shadow-lg text-sm p-2 flex items-center gap-2 mx-auto">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 shrink-0 stroke-current"
@@ -26,6 +26,7 @@ export default function Toast({ message, onClose }) {
         />
       </svg>
       <span>{message}</span>
+      <span className="loading loading-spinner loading-md"></span>
     </div>
   );
 }

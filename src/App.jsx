@@ -6,13 +6,15 @@ import NavBar from "./components/NavBar";
 import TableList from "./components/TableList";
 import ModalForm from "./components/ModalForm";
 import Toast from "./components/Toast";
+import DeleteModal from "./components/DeleteModal";
 
 // Dados iniciais
 import { tacticsData } from "./data/tacticsData";
 
 function App() {
   // Estado principal
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [tactics, setTactics] = useState(tacticsData);
   const [selectedTactic, setSelectedTactic] = useState(null);
@@ -22,7 +24,18 @@ function App() {
   function handleOpen(mode, tactic = null) {
     setModalMode(mode);
     setSelectedTactic(tactic);
-    setIsOpen(true);
+    setIsFormOpen(true);
+  }
+
+  function handleDelete(tactic) {
+    setSelectedTactic(tactic);
+    setIsDeleteOpen(true);
+  }
+
+  function submitDelete() {
+    setTactics((prev) => prev.filter((tactic) => tactic.id !== selectedTactic.id));
+    setToastMessage("Tactic deleted successfully!");
+    setIsDeleteOpen(false);
   }
 
   // Submete os dados do formulário
@@ -35,21 +48,24 @@ function App() {
       setTactics((prev) => prev.map((tactic) => (tactic.id === selectedTactic.id ? { ...tactic, ...data } : tactic)));
       setToastMessage("Tactic edited successfully!");
     }
-    setIsOpen(false);
+    setIsFormOpen(false);
   }
 
   return (
     <>
-      <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       <NavBar onOpen={() => handleOpen("add")} />
-      <TableList handleOpen={handleOpen} tacticData={tactics} />
+      <div className="mt-4 mx-auto w-max">
+        <Toast message={toastMessage} onClose={() => setToastMessage("")} />
+      </div>
+      <TableList handleOpen={handleOpen} tacticData={tactics} onDelete={handleDelete} />
       <ModalForm
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
         onSubmit={handleSubmit}
         mode={modalMode}
         tactic={selectedTactic}
       />
+      <DeleteModal isOpen={isDeleteOpen} onClose={() => setIsDeleteOpen(false)} onConfirm={submitDelete} />
     </>
   );
 }
