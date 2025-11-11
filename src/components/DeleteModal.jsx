@@ -1,7 +1,7 @@
 export default function DeleteModal({ isOpen, onClose, onConfirm }) {
   return (
     <>
-      <dialog id="my_modal_2" className="modal" open={isOpen}>
+      <dialog id="my_modal_2" className="modal backdrop-blur-sm" open={isOpen}>
         <div className="modal-box">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}

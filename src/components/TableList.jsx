@@ -1,3 +1,5 @@
+import MapImage from "./MapImage";
+
 export default function TableList({ handleOpen, tacticData, onDelete, onDetails }) {
   return (
     <div className="overflow-x-auto mt-10">
@@ -7,6 +9,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
           <tr>
             <th>#</th>
             <th>Map</th>
+            <th></th>
             <th>Side</th>
             <th>Zone</th>
             <th>Description</th>
@@ -20,12 +23,24 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
           {tacticData.map((tactic) => (
             <tr key={tactic.id} className="hover:bg-gray-700 cursor-pointer" onClick={() => onDetails(tactic)}>
               <th>#{tactic.id}</th>
-              <td>{tactic.map}</td>
-              <td>{tactic.side}</td>
-              <td>{tactic.zone}</td>
-              <td>{tactic.description}</td>
-              <td>{tactic.effectiveness}</td>
-
+              <td>
+                <strong>{tactic.map}</strong>
+              </td>
+              <td>
+                <MapImage map={tactic.map} />
+              </td>
+              <td>
+                <strong>{tactic.side}</strong>
+              </td>
+              <td>
+                <strong>{tactic.zone}</strong>
+              </td>
+              <td>
+                <strong>{tactic.description}</strong>
+              </td>
+              <td>
+                <strong>{tactic.effectiveness}</strong>
+              </td>
               {/* Botão de edição */}
               <td>
                 <button
@@ -33,7 +48,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                     e.stopPropagation(); // evita disparar onDetails
                     handleOpen("edit", tactic);
                   }}
-                  className="btn btn-info btn-sm font-bold"
+                  className="btn btn-info btn-md font-bold"
                 >
                   Update
                 </button>
@@ -46,7 +61,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                     e.stopPropagation(); // evita disparar onDetails
                     onDelete(tactic);
                   }}
-                  className="btn btn-error btn-sm font-bold"
+                  className="btn btn-error btn-md font-bold"
                 >
                   Delete
                 </button>
