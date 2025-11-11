@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 export default function NavBar({ onOpen }) {
   return (
     <>
@@ -19,9 +21,7 @@ export default function NavBar({ onOpen }) {
           </div>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-primary" onClick={onOpen}>
-            Add Tactic
-          </button>
+          <Button className={"btn btn-primary"} onOpen={onOpen} children={"Add Tactic"}></Button>
         </div>
       </div>
     </>

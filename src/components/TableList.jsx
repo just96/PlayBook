@@ -1,4 +1,5 @@
 import MapImage from "./MapImage";
+import Button from "./Button";
 
 export default function TableList({ handleOpen, tacticData, onDelete, onDetails }) {
   return (
@@ -43,28 +44,26 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
               </td>
               {/* Botão de edição */}
               <td>
-                <button
-                  onClick={(e) => {
+                <Button
+                  onOpen={(e) => {
                     e.stopPropagation(); // evita disparar onDetails
                     handleOpen("edit", tactic);
                   }}
-                  className="btn btn-info btn-md font-bold"
-                >
-                  Update
-                </button>
+                  className={"btn btn-info btn-md font-bold"}
+                  children={"Update"}
+                ></Button>
               </td>
 
               {/* Botão de exclusão */}
               <td>
-                <button
-                  onClick={(e) => {
+                <Button
+                  onOpen={(e) => {
                     e.stopPropagation(); // evita disparar onDetails
                     onDelete(tactic);
                   }}
-                  className="btn btn-error btn-md font-bold"
-                >
-                  Delete
-                </button>
+                  className={"btn btn-error btn-md font-bold"}
+                  children={"Delete"}
+                ></Button>
               </td>
             </tr>
           ))}

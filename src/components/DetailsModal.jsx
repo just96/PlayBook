@@ -1,3 +1,4 @@
+import Button from "./Button";
 import MapImage from "./MapImage";
 
 export default function DetailsModal({ isOpen, onClose, tactic }) {
@@ -50,9 +51,11 @@ export default function DetailsModal({ isOpen, onClose, tactic }) {
             </select>
           </fieldset>
           {/* Button to close dialog */}
-          <button type="button" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>
-            ✕
-          </button>
+          <Button
+            className={"btn btn-sm btn-circle btn-ghost absolute right-2 top-2"}
+            onOpen={onClose}
+            children={"✕"}
+          ></Button>
         </div>
       </dialog>
     </>

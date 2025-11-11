@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Button from "./Button";
 
 export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
   // Estados dos campos do formulário
@@ -31,7 +32,7 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
     <>
       <dialog id="my_modal_3" className="modal backdrop-blur-sm" open={isOpen}>
         <div className="modal-box">
-          <h3 className="font-bold text-lg py-4">{mode === "edit" ? "Edit Tactic" : "Add Tactic"}</h3>
+          <h3 className="font-bold text-lg py-4">{mode === "edit" ? `Edit tactic #${tactic.id}` : "Add Tactic"}</h3>
 
           {/* Formulário */}
           <form
@@ -127,15 +128,19 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
             </fieldset>
             {/* Button to submit */}
             <div className="mt-3">
-              <button type="submit" className="btn btn-success">
-                {mode === "edit" ? "Save Changes" : "Add Tactic"}
-              </button>
+              <Button
+                type="submit"
+                className={"btn btn-success"}
+                children={mode === "edit" ? "Save Changes" : "Add Tactic"}
+              ></Button>
             </div>
           </form>
           {/* Button to close dialog */}
-          <button type="button" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>
-            ✕
-          </button>
+          <Button
+            className={"btn btn-sm btn-circle btn-ghost absolute right-2 top-2"}
+            onOpen={onClose}
+            children={"✕"}
+          ></Button>
         </div>
       </dialog>
     </>

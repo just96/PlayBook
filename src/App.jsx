@@ -72,7 +72,12 @@ function App() {
         mode={modalMode}
         tactic={selectedTactic}
       />
-      <DeleteModal isOpen={isDeleteOpen} onClose={() => setIsDeleteOpen(false)} onConfirm={submitDelete} />
+      <DeleteModal
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={submitDelete}
+        tactic={selectedTactic}
+      />
       <DetailsModal isOpen={isDetailsOpen} onClose={() => setIsDetailsOpen(false)} tactic={selectedTactic} />
     </>
   );
