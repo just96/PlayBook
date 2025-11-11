@@ -21,6 +21,7 @@ function App() {
   const [tactics, setTactics] = useState(tacticsData);
   const [selectedTactic, setSelectedTactic] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Abre o modal com modo "add" ou "edit"
   function handleOpen(mode, tactic = null) {
@@ -58,13 +59,30 @@ function App() {
     setIsFormOpen(false);
   }
 
+  // Filtra as táticas
+  const filteredTactics = searchTerm
+    ? tactics.filter(
+        (tactic) =>
+          tactic.map.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          tactic.side.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          tactic.zone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          tactic.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          tactic.effectiveness.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : tactics;
+
   return (
     <>
-      <NavBar onOpen={() => handleOpen("add")} />
+      <NavBar onOpen={() => handleOpen("add")} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="mt-4 mx-auto w-max">
         <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       </div>
-      <TableList handleOpen={handleOpen} tacticData={tactics} onDelete={handleDelete} onDetails={handleDetail} />
+      <TableList
+        handleOpen={handleOpen}
+        tacticData={filteredTactics}
+        onDelete={handleDelete}
+        onDetails={handleDetail}
+      />
       <ModalForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}

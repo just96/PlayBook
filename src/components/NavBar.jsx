@@ -1,6 +1,7 @@
 import Button from "./Button";
+import SearchBar from "./SearchBar";
 
-export default function NavBar({ onOpen }) {
+export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -17,7 +18,7 @@ export default function NavBar({ onOpen }) {
         </div>
         <div className="navbar-center">
           <div className="flex gap-2">
-            <input type="text" placeholder="Search Tactic..." className="input input-bordered w-24 md:w-auto" />
+            <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
           </div>
         </div>
         <div className="navbar-end">
