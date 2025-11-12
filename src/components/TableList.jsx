@@ -27,7 +27,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
               <td>
                 <strong>{tactic.map}</strong>
               </td>
-              <td>
+              <td className="min-w-[100px]">
                 <MapImage map={tactic.map} />
               </td>
               <td>

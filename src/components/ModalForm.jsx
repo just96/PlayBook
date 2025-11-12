@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
+import MapImage from "./MapImage";
 
 export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
   // Estados dos campos do formulário
@@ -41,6 +42,7 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
               onSubmit({ map, side, zone, description, effectiveness });
             }}
           >
+            <MapImage map={map} className={"h-48 w-96 object-fit rounded"} />
             {/* Mapa */}
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Map</legend>
