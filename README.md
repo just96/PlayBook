@@ -7,6 +7,7 @@
 - Add, edit, and delete tactics
 - View tactic details in a modal
 - Search tactics by map, side, zone, description and effectiveness
+- Generate PDF with all tactics
 - Responsive design with DaisyUI/Tailwind
 - Toast notifications for actions
 
