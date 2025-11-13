@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
 import MapImage from "./MapImage";
+import { FaEdit } from "react-icons/fa";
+import { MdAddCircle } from "react-icons/md";
 
 export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
   // Estados dos campos do formulário
@@ -33,7 +35,19 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
     <>
       <dialog id="my_modal_3" className="modal backdrop-blur-sm" open={isOpen}>
         <div className="modal-box">
-          <h3 className="font-bold text-lg py-4">{mode === "edit" ? `Edit tactic #${tactic.id}` : "Add Tactic"}</h3>
+          <h3 className="font-bold text-lg py-4 flex items-center gap-2">
+            {mode === "edit" ? (
+              <>
+                <FaEdit size="20" />
+                <span>Update tactic #{tactic.id}</span>
+              </>
+            ) : (
+              <>
+                <MdAddCircle size="20" />
+                <span>Add Tactic</span>
+              </>
+            )}
+          </h3>
 
           {/* Formulário */}
           <form

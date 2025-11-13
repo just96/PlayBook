@@ -3,6 +3,8 @@ import autoTable from "jspdf-autotable";
 
 import Button from "./Button";
 import { tacticsData } from "../data/tacticsData";
+import { FaRegFilePdf } from "react-icons/fa";
+import { Fragment } from "react";
 
 export default function GeneratePdf() {
   const handleGenerate = () => {
@@ -31,7 +33,16 @@ export default function GeneratePdf() {
 
   return (
     <div className={"flex justify-end m-1"}>
-      <Button className="btn btn-accent" onClick={handleGenerate} children={" Export to PDF 📄"} />
+      <Button
+        className="btn btn-accent"
+        onClick={handleGenerate}
+        children={
+          <>
+            <span>Export to PDF</span>
+            <FaRegFilePdf size="17" />
+          </>
+        }
+      />
     </div>
   );
 }

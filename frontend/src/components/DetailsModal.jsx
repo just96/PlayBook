@@ -1,5 +1,6 @@
 import Button from "./Button";
 import MapImage from "./MapImage";
+import { FcViewDetails } from "react-icons/fc";
 
 export default function DetailsModal({ isOpen, onClose, tactic }) {
   if (!isOpen || !tactic) return null;
@@ -8,7 +9,8 @@ export default function DetailsModal({ isOpen, onClose, tactic }) {
     <>
       <dialog id="my_modal_3" className="modal backdrop-blur-sm" open={isOpen}>
         <div className="modal-box">
-          <h3 className="font-bold text-lg py-4">
+          <h3 className="font-bold text-lg py-4 flex items-center gap-2">
+            <FcViewDetails size="20" />
             Tactic Details <strong>#{tactic.id}</strong>
           </h3>
           <MapImage map={tactic.map} className="rounded" />

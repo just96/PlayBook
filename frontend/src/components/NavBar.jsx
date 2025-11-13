@@ -1,5 +1,6 @@
 import Button from "./Button";
 import SearchBar from "./SearchBar";
+import { MdAddCircle } from "react-icons/md";
 
 export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
   return (
@@ -22,7 +23,16 @@ export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
           </div>
         </div>
         <div className="navbar-end">
-          <Button className={"btn btn-primary"} onOpen={onOpen} children={"➕ Add Tactic"}></Button>
+          <Button
+            className={"btn btn-primary"}
+            onOpen={onOpen}
+            children={
+              <>
+                <MdAddCircle color="black" size="15" />
+                <span>Add Tactic</span>
+              </>
+            }
+          ></Button>
         </div>
       </div>
     </>

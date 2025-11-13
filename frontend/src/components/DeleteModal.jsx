@@ -1,4 +1,5 @@
 import Button from "./Button";
+import { MdDelete } from "react-icons/md";
 
 export default function DeleteModal({ isOpen, onClose, onConfirm, tactic }) {
   return (
@@ -11,10 +12,14 @@ export default function DeleteModal({ isOpen, onClose, onConfirm, tactic }) {
             onOpen={onClose}
             children={"✕"}
           ></Button>
-          <h3 className="font-bold text-lg">Sure you want to delete this tactic? #{tactic?.id || "?"}</h3>
+
+          <h3 className="font-bold text-lg flex items-center gap-2">
+            <MdDelete color="white" size="25" />
+            <span>Sure you want to delete this tactic? #{tactic?.id || "?"}</span>
+          </h3>
           <div className="divider"></div>
-          <Button className={"btn btn-error"} onOpen={onConfirm} children={"Delete"}></Button>
-          <Button className={"btn btn-accent"} onOpen={onClose} children={"Cancel"}></Button>
+          <Button className={"btn btn-error m-2"} onOpen={onConfirm} children={"Delete"}></Button>
+          <Button className={"btn btn-accent m-2"} onOpen={onClose} children={"Cancel"}></Button>
         </div>
       </dialog>
     </>

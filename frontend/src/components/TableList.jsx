@@ -1,6 +1,9 @@
 import MapImage from "./MapImage";
 import Button from "./Button";
 import GeneratePdf from "./GeneratePdf";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 export default function TableList({ handleOpen, tacticData, onDelete, onDetails }) {
   return (
@@ -51,8 +54,13 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                     e.stopPropagation(); // evita disparar onDetails
                     handleOpen("edit", tactic);
                   }}
-                  className={"btn btn-info btn-md font-bold"}
-                  children={"📝Update"}
+                  className={"btn btn-info btn-md"}
+                  children={
+                    <>
+                      <FaEdit color="black" size="15" />
+                      <span>Update</span>
+                    </>
+                  }
                 ></Button>
               </td>
 
@@ -63,8 +71,13 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                     e.stopPropagation(); // evita disparar onDetails
                     onDelete(tactic);
                   }}
-                  className={"btn btn-error btn-md font-bold"}
-                  children={"🗑️Delete"}
+                  className={"btn btn-error btn-md"}
+                  children={
+                    <>
+                      <MdDelete color="black" size="15" />
+                      <span>Delete</span>
+                    </>
+                  }
                 ></Button>
               </td>
             </tr>
