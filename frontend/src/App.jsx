@@ -74,9 +74,7 @@ function App() {
   return (
     <>
       <NavBar onOpen={() => handleOpen("add")} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <div className="mt-4 mx-auto w-max">
-        <Toast message={toastMessage} onClose={() => setToastMessage("")} />
-      </div>
+      <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       <TableList
         handleOpen={handleOpen}
         tacticData={filteredTactics}

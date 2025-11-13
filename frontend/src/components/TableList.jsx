@@ -1,9 +1,11 @@
 import MapImage from "./MapImage";
 import Button from "./Button";
+import GeneratePdf from "./GeneratePdf";
 
 export default function TableList({ handleOpen, tacticData, onDelete, onDetails }) {
   return (
     <div className="overflow-x-auto mt-10">
+      <GeneratePdf className={"text-center mb-5"} />
       <table className="table">
         {/* Cabeçalho da tabela */}
         <thead>
@@ -50,7 +52,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                     handleOpen("edit", tactic);
                   }}
                   className={"btn btn-info btn-md font-bold"}
-                  children={"Update"}
+                  children={"📝Update"}
                 ></Button>
               </td>
 
@@ -62,7 +64,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                     onDelete(tactic);
                   }}
                   className={"btn btn-error btn-md font-bold"}
-                  children={"Delete"}
+                  children={"🗑️Delete"}
                 ></Button>
               </td>
             </tr>

@@ -22,7 +22,7 @@ export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
           </div>
         </div>
         <div className="navbar-end">
-          <Button className={"btn btn-primary"} onOpen={onOpen} children={"Add Tactic"}></Button>
+          <Button className={"btn btn-primary"} onOpen={onOpen} children={"➕ Add Tactic"}></Button>
         </div>
       </div>
     </>

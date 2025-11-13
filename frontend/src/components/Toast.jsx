@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Toast({ message, onClose }) {
+  const toastRef = useRef(null);
+
   useEffect(() => {
     if (message) {
+      toastRef.current?.scrollIntoView({ top: 0, behavior: "smooth" });
+
       const timer = setTimeout(onClose, 2000);
       return () => clearTimeout(timer);
     }
@@ -11,7 +15,10 @@ export default function Toast({ message, onClose }) {
   if (!message) return null;
 
   return (
-    <div className="alert alert-success shadow-lg text-sm p-2 flex items-center gap-2 mx-auto">
+    <div
+      ref={toastRef}
+      className="alert alert-success shadow-lg text-sm p-2 flex items-center gap-2 mx-auto mt-4 w-max"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 shrink-0 stroke-current"
