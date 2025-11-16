@@ -122,6 +122,7 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
                 placeholder="Describe your strat..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                maxLength={200}
               ></textarea>
             </fieldset>
             {/* Effectiveness */}
