@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Componentes
 import NavBar from "./components/NavBar";
@@ -9,8 +9,8 @@ import Toast from "./components/Toast";
 import DeleteModal from "./components/DeleteModal";
 import DetailsModal from "./components/DetailsModal";
 
-// Dados iniciais
-import { tacticsData } from "./data/tacticsData";
+// // Dados iniciais
+// import { tacticsData } from "./data/tacticsData";
 
 function App() {
   // Estado principal
@@ -18,10 +18,19 @@ function App() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [modalMode, setModalMode] = useState("add");
-  const [tactics, setTactics] = useState(tacticsData);
+  const [tactics, setTactics] = useState([]);
   const [selectedTactic, setSelectedTactic] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:3000/tactics")
+      .then((res) => res.json())
+      .then((data) => setTactics(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  // console.log(tactics);
 
   // Abre o modal com modo "add" ou "edit"
   function handleOpen(mode, tactic = null) {

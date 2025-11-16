@@ -3,7 +3,7 @@ import Tactic from "../models/Tactic.js";
 export async function getTactics(req, res) {
   try {
     const allTactics = await Tactic.find();
-    res.status(200).json({ message: "All tactics here", allTactics });
+    res.status(200).json(allTactics);
   } catch (error) {
     console.error("Error in getTactics controller", error);
     res.status(500).json({ message: "Internal server error" });

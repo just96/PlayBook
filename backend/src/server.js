@@ -2,6 +2,7 @@ import express from "express";
 import { connectDataBase } from "./config/dataBase.js";
 import dotenv from "dotenv";
 import tacticsRoutes from "./routes/tacticsRoutes.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -12,6 +13,12 @@ console.log("MONGO_URI:", process.env.MONGO_URI);
 
 // init DB
 connectDataBase();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 app.use(express.json());
 

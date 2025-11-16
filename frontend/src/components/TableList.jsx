@@ -3,7 +3,6 @@ import Button from "./Button";
 import GeneratePdf from "./GeneratePdf";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { MdDeleteOutline } from "react-icons/md";
 
 export default function TableList({ handleOpen, tacticData, onDelete, onDetails }) {
   return (
@@ -26,62 +25,63 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
 
         {/* Corpo da tabela */}
         <tbody className="hover">
-          {tacticData.map((tactic) => (
-            <tr key={tactic.id} className="hover:bg-gray-700 cursor-pointer" onClick={() => onDetails(tactic)}>
-              <th>#{tactic.id}</th>
-              <td>
-                <strong>{tactic.map}</strong>
-              </td>
-              <td className="min-w-[100px]">
-                <MapImage map={tactic.map} />
-              </td>
-              <td>
-                <strong>{tactic.side}</strong>
-              </td>
-              <td>
-                <strong>{tactic.zone}</strong>
-              </td>
-              <td>
-                <strong>{tactic.description}</strong>
-              </td>
-              <td>
-                <strong>{tactic.effectiveness}</strong>
-              </td>
-              {/* Botão de edição */}
-              <td>
-                <Button
-                  onOpen={(e) => {
-                    e.stopPropagation(); // evita disparar onDetails
-                    handleOpen("edit", tactic);
-                  }}
-                  className={"btn btn-info btn-md"}
-                  children={
-                    <>
-                      <FaEdit color="black" size="15" />
-                      <span>Update</span>
-                    </>
-                  }
-                ></Button>
-              </td>
+          {Array.isArray(tacticData) &&
+            tacticData.map((tactic, index) => (
+              <tr key={tactic._id} className="hover:bg-gray-700 cursor-pointer" onClick={() => onDetails(tactic)}>
+                <th>#{index + 1}</th>
+                <td>
+                  <strong>{tactic.map}</strong>
+                </td>
+                <td className="min-w-[100px]">
+                  <MapImage map={tactic.map} />
+                </td>
+                <td>
+                  <strong>{tactic.side}</strong>
+                </td>
+                <td>
+                  <strong>{tactic.zone}</strong>
+                </td>
+                <td>
+                  <strong>{tactic.description}</strong>
+                </td>
+                <td>
+                  <strong>{tactic.effectiveness}</strong>
+                </td>
+                {/* Botão de edição */}
+                <td>
+                  <Button
+                    onOpen={(e) => {
+                      e.stopPropagation(); // evita disparar onDetails
+                      handleOpen("edit", tactic);
+                    }}
+                    className={"btn btn-info btn-md"}
+                    children={
+                      <>
+                        <FaEdit color="black" size="15" />
+                        <span>Update</span>
+                      </>
+                    }
+                  ></Button>
+                </td>
 
-              {/* Botão de exclusão */}
-              <td>
-                <Button
-                  onOpen={(e) => {
-                    e.stopPropagation(); // evita disparar onDetails
-                    onDelete(tactic);
-                  }}
-                  className={"btn btn-error btn-md"}
-                  children={
-                    <>
-                      <MdDelete color="black" size="15" />
-                      <span>Delete</span>
-                    </>
-                  }
-                ></Button>
-              </td>
-            </tr>
-          ))}
+                {/* Botão de exclusão */}
+                <td>
+                  <Button
+                    onOpen={(e) => {
+                      e.stopPropagation(); // evita disparar onDetails
+                      onDelete(tactic);
+                    }}
+                    className={"btn btn-error btn-md"}
+                    children={
+                      <>
+                        <MdDelete color="black" size="15" />
+                        <span>Delete</span>
+                      </>
+                    }
+                  ></Button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

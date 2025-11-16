@@ -11,7 +11,7 @@ export default function DetailsModal({ isOpen, onClose, tactic }) {
         <div className="modal-box">
           <h3 className="font-bold text-lg py-4 flex items-center gap-2">
             <FcViewDetails size="20" />
-            Tactic Details <strong>#{tactic.id}</strong>
+            Tactic Details <strong>#{tactic._id}</strong>
           </h3>
           <MapImage map={tactic.map} className="rounded" />
           {/* Mapa */}
