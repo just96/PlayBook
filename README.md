@@ -31,8 +31,8 @@
 ## Environment Variables
 
 Create a `.env` file in the backend folder with:
-`MONGO_URI`=your_mongodb_connection_string
-`PORT`=3000
+- `MONGO_URI`=your_mongodb_connection_string
+- `PORT`=3000
 
 ## Setup
 
