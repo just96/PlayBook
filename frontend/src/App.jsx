@@ -24,10 +24,16 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/tactics")
-      .then((res) => res.json())
-      .then((data) => setTactics(data))
-      .catch((error) => console.error(error));
+    const getData = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/tactics");
+        const data = await res.json();
+        setTactics(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
   }, []);
 
   // console.log(tactics);
