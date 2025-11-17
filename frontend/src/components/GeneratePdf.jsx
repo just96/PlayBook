@@ -2,12 +2,14 @@ import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
 import Button from "./Button";
-import { tacticsData } from "../data/tacticsData";
 import { FaRegFilePdf } from "react-icons/fa";
-import { Fragment } from "react";
 
-export default function GeneratePdf() {
+export default function GeneratePdf({ tactics }) {
   const handleGenerate = () => {
+    if (!tactics || tactics.length === 0) {
+      alert("No tactics to export!");
+      return;
+    }
     const doc = new jsPDF();
     const title = "PlayBook";
     const padding = 10;
@@ -18,8 +20,8 @@ export default function GeneratePdf() {
 
     autoTable(doc, {
       head: [["#", "Map", "Side", "Zone", "Description", "Effectiveness"]],
-      body: tacticsData.map((tactic) => [
-        tactic.id,
+      body: tactics.map((tactic, index) => [
+        index + 1,
         tactic.map,
         tactic.side,
         tactic.zone,
@@ -27,8 +29,7 @@ export default function GeneratePdf() {
         tactic.effectiveness,
       ]),
     });
-
-    doc.save("testPDF.pdf");
+    doc.save("PlayBook.pdf");
   };
 
   return (

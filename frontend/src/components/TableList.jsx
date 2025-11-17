@@ -7,7 +7,7 @@ import { FaEdit } from "react-icons/fa";
 export default function TableList({ handleOpen, tacticData, onDelete, onDetails }) {
   return (
     <div className="overflow-x-auto mt-10">
-      <GeneratePdf className={"text-center mb-5"} />
+      <GeneratePdf className={"text-center mb-5"} tactics={tacticData} />
       <table className="table">
         {/* Cabeçalho da tabela */}
         <thead>

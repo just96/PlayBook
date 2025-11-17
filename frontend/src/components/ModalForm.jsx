@@ -39,7 +39,7 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
             {mode === "edit" ? (
               <>
                 <FaEdit size="20" />
-                <span>Update tactic #{tactic.id}</span>
+                <span>Update tactic #{tactic._id}</span>
               </>
             ) : (
               <>

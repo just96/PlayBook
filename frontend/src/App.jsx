@@ -23,17 +23,18 @@ function App() {
   const [toastMessage, setToastMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
+  const fetchTactics = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/tactics");
+      const data = await res.json();
+      setTactics(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/tactics");
-        const data = await res.json();
-        setTactics(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getData();
+    fetchTactics();
   }, []);
 
   // console.log(tactics);
@@ -55,23 +56,49 @@ function App() {
     setIsDetailsOpen(true);
   }
 
-  function submitDelete() {
-    setTactics((prev) => prev.filter((tactic) => tactic.id !== selectedTactic.id));
-    setToastMessage("Tactic deleted successfully!");
-    setIsDeleteOpen(false);
+  async function submitDelete() {
+    try {
+      await fetch(`http://localhost:3000/tactics/${selectedTactic._id}`, {
+        method: "DELETE",
+      });
+      setTactics((prev) => prev.filter((tactic) => tactic._id !== selectedTactic._id));
+      setToastMessage("Tactic deleted successfully!");
+      setIsDeleteOpen(false);
+    } catch (error) {
+      console.error(error);
+      setToastMessage("Error deleting tactic");
+    }
   }
 
   // Submete os dados do formulário
-  function handleSubmit(data) {
-    if (modalMode === "add") {
-      const newTactic = { id: Date.now(), ...data };
-      setTactics((prev) => [...prev, newTactic]);
-      setToastMessage("Tactic added successfully!");
-    } else if (modalMode === "edit" && selectedTactic) {
-      setTactics((prev) => prev.map((tactic) => (tactic.id === selectedTactic.id ? { ...tactic, ...data } : tactic)));
-      setToastMessage("Tactic updated successfully!");
+  async function handleSubmit(data) {
+    try {
+      let response;
+      if (modalMode === "add") {
+        response = await fetch("http://localhost:3000/tactics", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const newTactic = await response.json();
+        setTactics((prev) => [...prev, newTactic]);
+        setToastMessage("Tactic added successfully!");
+      } else if (modalMode === "edit" && selectedTactic) {
+        response = await fetch(`http://localhost:3000/tactics/${selectedTactic._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const updatedTactic = await response.json();
+        setTactics((prev) => prev.map((tactic) => (tactic._id === selectedTactic._id ? updatedTactic : tactic)));
+        setToastMessage("Tactic updated successfully!");
+      }
+      await fetchTactics();
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error(error);
+      setToastMessage("Error saving tactic");
     }
-    setIsFormOpen(false);
   }
 
   // Filtra as táticas

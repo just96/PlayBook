@@ -15,7 +15,7 @@ export default function DeleteModal({ isOpen, onClose, onConfirm, tactic }) {
 
           <h3 className="font-bold text-lg flex items-center gap-2">
             <MdDelete color="white" size="25" />
-            <span>Sure you want to delete this tactic? #{tactic?.id || "?"}</span>
+            <span>Sure you want to delete this tactic? #{tactic?._id || "?"}</span>
           </h3>
           <div className="divider"></div>
           <Button className={"btn btn-error m-2"} onOpen={onConfirm} children={"Delete"}></Button>

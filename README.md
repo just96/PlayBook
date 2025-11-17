@@ -4,10 +4,10 @@
 
 ## Features
 
-- Add, edit, and delete tactics 
+- Add, edit, and delete tactics
 - View tactic details in a modal
 - Search tactics by map, side, zone, description, and effectiveness
-- Generate PDF with all tactics 
+- Generate PDF with all tactics
 - Responsive design with DaisyUI/Tailwind
 - Toast notifications for actions
 
@@ -31,6 +31,7 @@
 ## Environment Variables
 
 Create a `.env` file in the backend folder with:
+
 - `MONGO_URI`=your_mongodb_connection_string
 - `PORT`=3000
 
