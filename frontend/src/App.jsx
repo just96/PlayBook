@@ -22,14 +22,18 @@ function App() {
   const [selectedTactic, setSelectedTactic] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchTactics = async () => {
     try {
+      setLoading(true);
       const res = await fetch("http://localhost:3000/tactics");
       const data = await res.json();
       setTactics(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -117,12 +121,20 @@ function App() {
     <>
       <NavBar onOpen={() => handleOpen("add")} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <Toast message={toastMessage} onClose={() => setToastMessage("")} />
-      <TableList
-        handleOpen={handleOpen}
-        tacticData={filteredTactics}
-        onDelete={handleDelete}
-        onDetails={handleDetail}
-      />
+
+      {loading ? (
+        <div className="flex justify-center items-center h-[60vh]">
+          <span className="loading loading-spinner loading-xl"></span>
+        </div>
+      ) : (
+        <TableList
+          handleOpen={handleOpen}
+          tacticData={filteredTactics}
+          onDelete={handleDelete}
+          onDetails={handleDetail}
+        />
+      )}
+
       <ModalForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
