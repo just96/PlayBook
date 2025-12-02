@@ -16,7 +16,7 @@
 - Frontend: React (useState, useEffect)
 - Styling: DaisyUI / Tailwind CSS
 - Reusable components: Toast, Button, MapImage
-- Backend: Node.js + Express (in progress)
+- Backend: Node.js + Express 
 - Database: MongoDB / Mongoose
 - CORS enabled for frontend-backend communication
 - Postman (used for testing backend endpoints)
@@ -25,8 +25,8 @@
 
 - `GET /tactics` – fetch all tactics
 - `POST /tactics` – add new tactic
-- `PUT /tactics/:id` – update tactic (in progress)
-- `DELETE /tactics/:id` – delete tactic (in progress)
+- `PUT /tactics/:id` – update tactic
+- `DELETE /tactics/:id` – delete tactic
 
 ## Environment Variables
 
