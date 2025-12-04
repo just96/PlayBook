@@ -1,20 +1,23 @@
 import Button from "./Button";
 import SearchBar from "./SearchBar";
+import FlipLabel from "./FlipLabel";
 import { MdAddCircle } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("user");
+    navigate("/login");
+  }
+
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
           <div className="navbar-start flex flex-col items-center leading-none">
-            <label className="swap swap-flip text-3xl md:text-6xl text-center ">
-              {/* this hidden checkbox controls the state */}
-              <input type="checkbox" />
-              <div className="swap-on">PlayBook</div>
-              <div className="swap-off">📖</div>
-            </label>
-            <span className="text-2xl animate-bounce mt-5">⬆️</span>
+            <FlipLabel />
           </div>
         </div>
         <div className="navbar-center">
@@ -33,6 +36,9 @@ export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
               </>
             }
           ></Button>
+          <Button className={"btn btn-soft btn-error mx-1"} onOpen={handleLogout}>
+            Logout
+          </Button>
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Componentes
 import NavBar from "./components/NavBar";
@@ -23,6 +24,7 @@ function App() {
   const [toastMessage, setToastMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const fetchTactics = async () => {
     try {
@@ -38,8 +40,13 @@ function App() {
   };
 
   useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/login");
+    }
+
     fetchTactics();
-  }, []);
+  }, [navigate]);
 
   // console.log(tactics);
 
