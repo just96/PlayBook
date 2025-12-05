@@ -16,5 +16,6 @@ router.put("/:id", updateTactic);
 router.delete("/:id", deleteCurrentTactic);
 // seed via Postman
 // router.post("/bulk", createManyTactics);
+// router.post("/insert-user", insertDefaultUser);
 
 export default router;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "./Toast";
 import FlipLabel from "./FlipLabel";
@@ -7,9 +7,12 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toastMessage, setToastMessage] = useState("");
+  const emailRef = useRef();
+
   const navigate = useNavigate();
 
   useEffect(() => {
+    emailRef.current.focus();
     const user = localStorage.getItem("user");
     if (user) {
       navigate("/");
@@ -43,6 +46,7 @@ export default function Login() {
               </label>
               <div className="mt-2">
                 <input
+                  ref={emailRef}
                   id="email"
                   name="email"
                   type="email"

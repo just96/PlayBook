@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const tacticSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     map: {
       type: String,
       required: true,

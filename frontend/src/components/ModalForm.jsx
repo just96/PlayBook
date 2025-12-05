@@ -3,6 +3,7 @@ import Button from "./Button";
 import MapImage from "./MapImage";
 import { FaEdit } from "react-icons/fa";
 import { MdAddCircle } from "react-icons/md";
+import Toast from "./Toast";
 
 export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
   // Estados dos campos do formulário
@@ -11,10 +12,12 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
   const [zone, setZone] = useState("");
   const [description, setDescription] = useState("");
   const [effectiveness, setEffectiveness] = useState("");
+  const mapRef = useRef();
 
   // Atualiza os campos ao abrir o modal
   useEffect(() => {
     if (isOpen) {
+      mapRef.current.focus();
       if (mode === "edit" && tactic) {
         setMap(tactic.map);
         setSide(tactic.side);
@@ -53,6 +56,11 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+
+              if (!map || !side || !zone || !description || !effectiveness) {
+                alert("Todos os campos são obrigatórios!");
+                return;
+              }
               onSubmit({ map, side, zone, description, effectiveness });
             }}
           >
@@ -61,6 +69,7 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Map</legend>
               <select
+                ref={mapRef}
                 className="select"
                 value={map}
                 onChange={(e) => {
