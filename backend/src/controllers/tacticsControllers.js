@@ -26,6 +26,9 @@ export async function getCurrentTactic(req, res) {
 export async function newTactic(req, res) {
   try {
     const { map, side, zone, description, effectiveness } = req.body;
+    if (!map || !side || !zone || !description || !effectiveness) {
+      return res.status(400).json({ message: "All fields are required!" });
+    }
     const newTactic = new Tactic({ user: "6932d35cd8f4857ee5486592", map, side, zone, description, effectiveness });
     const saveTactic = await newTactic.save();
     res.status(201).json({ message: "Tactic created successfully!", saveTactic });
@@ -38,6 +41,9 @@ export async function newTactic(req, res) {
 export async function updateTactic(req, res) {
   try {
     const { map, side, zone, description, effectiveness } = req.body;
+    if (!map || !side || !zone || !description || !effectiveness) {
+      return res.status(400).json({ message: "All fields are required!" });
+    }
     const { id } = req.params;
     const updateTactic = await Tactic.findOneAndUpdate(
       { _id: id, user: "6932d35cd8f4857ee5486592" },
@@ -45,7 +51,7 @@ export async function updateTactic(req, res) {
       { new: true, runValidators: true }
     );
     if (!updateTactic) return res.status(404).json({ message: "Tactic not found!" });
-    res.status(200).json({ message: "Tactic updated sucessfully!", updateTactic });
+    res.status(200).json({ message: "Tactic updated successfully!", updateTactic });
   } catch (error) {
     console.error("Error in updateTactic controller", error);
     res.status(500).json({ message: "Internal server error" });
@@ -57,7 +63,7 @@ export async function deleteCurrentTactic(req, res) {
     const { id } = req.params;
     const deleteTactic = await Tactic.findOneAndDelete({ _id: id, user: "6932d35cd8f4857ee5486592" });
     if (!deleteTactic) return res.status(404).json({ message: "Tactic not found!" });
-    res.status(200).json({ message: "Tactic deleted sucessfully!", deleteTactic });
+    res.status(200).json({ message: "Tactic deleted successfully!", deleteTactic });
   } catch (error) {
     console.error("Error in deleteTactic controller", error);
     res.status(500).json({ message: "Internal Server Error" });
