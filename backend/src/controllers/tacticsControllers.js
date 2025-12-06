@@ -14,9 +14,9 @@ export async function getTactics(req, res) {
 export async function getCurrentTactic(req, res) {
   try {
     const { id } = req.params;
-    const currentTactic = await Tactic.findOne({ _id: id, user: "6932d35cd8f4857ee5486592" });
-    if (!currentTactic) return res.status(404).json({ message: "Tactic not found!" });
-    res.status(200).json({ message: "Your current tactic is", currentTactic });
+    const tactic = await Tactic.findOne({ _id: id, user: "6932d35cd8f4857ee5486592" });
+    if (!tactic) return res.status(404).json({ message: "Tactic not found!" });
+    res.status(200).json({ message: "Your current tactic is", tactic });
   } catch (error) {
     console.error("Error in getCurrentTactic controller", error);
     res.status(500).json({ message: "Internal server error" });
@@ -29,8 +29,8 @@ export async function newTactic(req, res) {
     if (!map || !side || !zone || !description || !effectiveness) {
       return res.status(400).json({ message: "All fields are required!" });
     }
-    const newTactic = new Tactic({ user: "6932d35cd8f4857ee5486592", map, side, zone, description, effectiveness });
-    const saveTactic = await newTactic.save();
+    const tactic = new Tactic({ user: "6932d35cd8f4857ee5486592", map, side, zone, description, effectiveness });
+    const saveTactic = await tactic.save();
     res.status(201).json({ message: "Tactic created successfully!", saveTactic });
   } catch (error) {
     console.error("Error in newTactic controller", error);
@@ -45,13 +45,13 @@ export async function updateTactic(req, res) {
       return res.status(400).json({ message: "All fields are required!" });
     }
     const { id } = req.params;
-    const updateTactic = await Tactic.findOneAndUpdate(
+    const tactic = await Tactic.findOneAndUpdate(
       { _id: id, user: "6932d35cd8f4857ee5486592" },
       { map, side, zone, description, effectiveness },
       { new: true, runValidators: true }
     );
-    if (!updateTactic) return res.status(404).json({ message: "Tactic not found!" });
-    res.status(200).json({ message: "Tactic updated successfully!", updateTactic });
+    if (!tactic) return res.status(404).json({ message: "Tactic not found!" });
+    res.status(200).json({ message: "Tactic updated successfully!", tactic });
   } catch (error) {
     console.error("Error in updateTactic controller", error);
     res.status(500).json({ message: "Internal server error" });
@@ -61,9 +61,9 @@ export async function updateTactic(req, res) {
 export async function deleteCurrentTactic(req, res) {
   try {
     const { id } = req.params;
-    const deleteTactic = await Tactic.findOneAndDelete({ _id: id, user: "6932d35cd8f4857ee5486592" });
-    if (!deleteTactic) return res.status(404).json({ message: "Tactic not found!" });
-    res.status(200).json({ message: "Tactic deleted successfully!", deleteTactic });
+    const tactic = await Tactic.findOneAndDelete({ _id: id, user: "6932d35cd8f4857ee5486592" });
+    if (!tactic) return res.status(404).json({ message: "Tactic not found!" });
+    res.status(200).json({ message: "Tactic deleted successfully!", tactic });
   } catch (error) {
     console.error("Error in deleteTactic controller", error);
     res.status(500).json({ message: "Internal Server Error" });
