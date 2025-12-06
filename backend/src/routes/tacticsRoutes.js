@@ -6,16 +6,14 @@ import {
   updateTactic,
   deleteCurrentTactic,
 } from "../controllers/tacticsControllers.js";
+import { auth } from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("/", getTactics);
-router.get("/:id", getCurrentTactic);
-router.post("/", newTactic);
-router.put("/:id", updateTactic);
-router.delete("/:id", deleteCurrentTactic);
-// seed via Postman
-// router.post("/bulk", createManyTactics);
-// router.post("/insert-user", insertDefaultUser);
+router.get("/", auth, getTactics);
+router.get("/:id", auth, getCurrentTactic);
+router.post("/", auth, newTactic);
+router.put("/:id", auth, updateTactic);
+router.delete("/:id", auth, deleteCurrentTactic);
 
 export default router;

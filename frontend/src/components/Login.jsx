@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Toast from "./Toast";
 import FlipLabel from "./FlipLabel";
 
@@ -78,6 +78,13 @@ export default function Login() {
                 />
               </div>
             </div>
+
+            <p className="mt-10 text-center text-sm/6 text-gray-400">
+              Not registered?{" "}
+              <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
+                Create your account here!
+              </Link>
+            </p>
 
             <div>
               <button
