@@ -8,6 +8,10 @@ export default function NavBar({ onOpen, searchTerm, setSearchTerm }) {
   const navigate = useNavigate();
 
   function handleLogout() {
+    const confirm = window.confirm("Sure you want to logout?");
+    if (!confirm) return;
+
+    localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/login");
   }

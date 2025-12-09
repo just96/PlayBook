@@ -6,13 +6,17 @@ export const register = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).json({ message: "Empty fields!" });
+    }
+
     const exists = await User.findOne({ email });
-    if (exists) return res.status(409).json({ message: "Email já existe" });
+    if (exists) return res.status(409).json({ message: "Email already in use!" });
 
     const hashed = await bcrypt.hash(password, 10);
     const user = await User.create({ email, password: hashed });
 
-    res.status(201).json({ message: "User criado", userId: user._id });
+    res.status(201).json({ message: "User created!", userId: user._id });
   } catch (error) {
     console.error("Error in register controller ", error);
     res.status(500).json({ message: "Internal server error" });
@@ -22,6 +26,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Empty fields!" });
+    }
 
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Invalid credentials" });

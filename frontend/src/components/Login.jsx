@@ -8,32 +8,55 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("error");
   const emailRef = useRef();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     emailRef.current.focus();
-    const user = localStorage.getItem("user");
-    if (user) {
+    const token = localStorage.getItem("token");
+    if (token) {
       navigate("/");
     }
   }, [navigate]);
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
-    if (email === "test@gmail.com" && password === "1234") {
+    try {
+      const res = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setToastType("error");
+        setToastMessage(data.message || "Login failed");
+        return;
+      }
+
+      setToastType("success");
+      setToastMessage("Login successfull!");
+      localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify({ email }));
-      navigate("/");
-    } else {
-      setToastMessage("Wrong data");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+      setToastType("error");
+      setToastMessage("Something went wrong!");
     }
   }
 
   return (
     <>
-      {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage("")} type={"error"} />}
+      {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage("")} type={toastType} />}
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="flex flex-col items-center justify-center">
           <FlipLabel />

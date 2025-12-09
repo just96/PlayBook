@@ -3,7 +3,6 @@ import Button from "./Button";
 import MapImage from "./MapImage";
 import { FaEdit } from "react-icons/fa";
 import { MdAddCircle } from "react-icons/md";
-import Toast from "./Toast";
 
 export default function ModalForm({ isOpen, onClose, mode, onSubmit, tactic }) {
   // Estados dos campos do formulário
