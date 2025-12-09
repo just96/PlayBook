@@ -4,6 +4,9 @@
 
 ## Features
 
+- Register and login with email and password
+- Passwords hashed with bcrypt
+- JWT authentication for protected routes
 - Add, edit, and delete tactics
 - View tactic details in a modal
 - Search tactics by map, side, zone, description, and effectiveness
@@ -23,6 +26,8 @@
 
 ## Backend Endpoints
 
+- `POST /auth/register` - register a new user
+- `POST /auth/login` - login and get JWT token
 - `GET /tactics` – fetch all tactics
 - `POST /tactics` – add new tactic
 - `PUT /tactics/:id` – update tactic
@@ -34,6 +39,7 @@ Create a `.env` file in the backend folder with:
 
 - `MONGO_URI`=your_mongodb_connection_string
 - `PORT`=3000
+- `JWT_SECRET`=jwt_secret_code
 
 ## Setup
 
