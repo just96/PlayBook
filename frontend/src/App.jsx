@@ -26,10 +26,20 @@ function App() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const getToken = () => localStorage.getItem("token");
+
   const fetchTactics = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/tactics");
+
+      const res = await fetch("http://localhost:3000/tactics", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+
       const data = await res.json();
       setTactics(data);
     } catch (error) {
@@ -40,11 +50,10 @@ function App() {
   };
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/login");
     }
-
     fetchTactics();
   }, [navigate]);
 
@@ -71,6 +80,7 @@ function App() {
     try {
       await fetch(`http://localhost:3000/tactics/${selectedTactic._id}`, {
         method: "DELETE",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
       });
       setTactics((prev) => prev.filter((tactic) => tactic._id !== selectedTactic._id));
       setToastMessage("Tactic deleted successfully!");
@@ -88,16 +98,17 @@ function App() {
       if (modalMode === "add") {
         response = await fetch("http://localhost:3000/tactics", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
           body: JSON.stringify(data),
         });
         const newTactic = await response.json();
+
         setTactics((prev) => [...prev, newTactic]);
         setToastMessage("Tactic added successfully!");
       } else if (modalMode === "edit" && selectedTactic) {
         response = await fetch(`http://localhost:3000/tactics/${selectedTactic._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
           body: JSON.stringify(data),
         });
         const updatedTactic = await response.json();

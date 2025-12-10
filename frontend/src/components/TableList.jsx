@@ -25,7 +25,7 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
 
         {/* Corpo da tabela */}
         <tbody className="hover">
-          {Array.isArray(tacticData) &&
+          {Array.isArray(tacticData) && tacticData.length > 0 ? (
             tacticData.map((tactic, index) => (
               <tr key={tactic._id} className="hover:bg-gray-700 cursor-pointer" onClick={() => onDetails(tactic)}>
                 <th>#{index + 1}</th>
@@ -81,7 +81,14 @@ export default function TableList({ handleOpen, tacticData, onDelete, onDetails 
                   ></Button>
                 </td>
               </tr>
-            ))}
+            ))
+          ) : (
+            <tr>
+              <td colSpan="9" className="text-center text-2xl font-bold">
+                No tactics available
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
