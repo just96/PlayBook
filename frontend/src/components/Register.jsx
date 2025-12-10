@@ -22,8 +22,19 @@ export default function Register() {
     }
   }, [navigate]);
 
+  function validatePassword(input) {
+    if (input.length < 8) {
+      setToastType("error");
+      setToastMessage("Password needs to be at least 8 characters");
+      return false;
+    }
+    return true;
+  }
+
   async function handleRegister(e) {
     e.preventDefault();
+
+    if (!validatePassword(password)) return;
 
     try {
       const res = await fetch("http://localhost:3000/auth/register", {
