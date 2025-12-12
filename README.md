@@ -7,6 +7,7 @@
 - Register and login with email and password
 - Passwords hashed with bcrypt
 - JWT authentication for protected routes
+- Joi validation for backend input
 - Add, edit, and delete tactics
 - View tactic details in a modal
 - Search tactics by map, side, zone, description, and effectiveness
@@ -19,7 +20,7 @@
 - Frontend: React (useState, useEffect)
 - Styling: DaisyUI / Tailwind CSS
 - Reusable components: Toast, Button, MapImage
-- Backend: Node.js + Express 
+- Backend: Node.js + Express
 - Database: MongoDB / Mongoose
 - CORS enabled for frontend-backend communication
 - Postman (used for testing backend endpoints)

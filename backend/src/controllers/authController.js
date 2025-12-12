@@ -1,18 +1,14 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { validateUser } from "../validators/user.js";
 
 export const register = async (req, res) => {
   try {
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
+
     const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "Empty fields!" });
-    }
-
-    if (password.length < 8) {
-      return res.status(400).json({ message: "Password must be at least 8 characters" });
-    }
 
     const exists = await User.findOne({ email });
     if (exists) return res.status(409).json({ message: "Email already in use!" });
@@ -22,18 +18,17 @@ export const register = async (req, res) => {
 
     res.status(201).json({ message: "User created!", userId: user._id });
   } catch (error) {
-    console.error("Error in register controller ", error);
+    console.error("Error in register", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Empty fields!" });
-    }
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
@@ -45,7 +40,7 @@ export const login = async (req, res) => {
 
     res.status(200).json({ message: "Login successfull!", token });
   } catch (error) {
-    console.error("Error in login controller ", error);
+    console.error("Error in login", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -55,7 +50,7 @@ export const getAllUsers = async (req, res) => {
     const allUsers = await User.find();
     res.status(200).json(allUsers);
   } catch (error) {
-    console.error("Error in getTactics controller", error);
+    console.error("Error in getTactics", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -68,7 +63,7 @@ export const deleteUser = async (req, res) => {
 
     res.status(200).json({ message: "User deleted successfully!" });
   } catch (error) {
-    console.error("Error in deleteUser controller", error);
+    console.error("Error in deleteUser", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
