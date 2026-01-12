@@ -94,29 +94,50 @@ function App() {
   // Submete os dados do formulário
   async function handleSubmit(data) {
     try {
+      const payload = {
+        user: localStorage.getItem("user"), // pega o userId do login
+        map: data.map,
+        side: data.side,
+        zone: data.zone,
+        description: data.description,
+        effectiveness: data.effectiveness,
+      };
+
       let response;
       if (modalMode === "add") {
         response = await fetch("http://localhost:3000/tactics", {
           method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
-          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
+          },
+          body: JSON.stringify(payload),
         });
-        const newTactic = await response.json();
 
+        if (!response.ok) throw new Error(await response.text());
+
+        const newTactic = await response.json();
         setTactics((prev) => [...prev, newTactic]);
         setToastMessage("Tactic added successfully!");
       } else if (modalMode === "edit" && selectedTactic) {
         response = await fetch(`http://localhost:3000/tactics/${selectedTactic._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
-          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
+          },
+          body: JSON.stringify(payload),
         });
+
+        if (!response.ok) throw new Error(await response.text());
+
         const updatedTactic = await response.json();
         setTactics((prev) => prev.map((tactic) => (tactic._id === selectedTactic._id ? updatedTactic : tactic)));
         setToastMessage("Tactic updated successfully!");
       }
-      await fetchTactics();
+
       setIsFormOpen(false);
+      await fetchTactics();
     } catch (error) {
       console.error(error);
       setToastMessage("Error saving tactic");

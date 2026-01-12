@@ -32,6 +32,7 @@ export default function Login() {
       });
 
       const data = await res.json();
+      console.log(data);
 
       if (!res.ok) {
         setToastType("error");
@@ -42,7 +43,7 @@ export default function Login() {
       setToastType("success");
       setToastMessage("Login successfull!");
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify({ email }));
+      localStorage.setItem("user", data.user._id);
 
       setTimeout(() => {
         navigate("/");
