@@ -53,6 +53,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
+      return;
     }
     fetchTactics();
   }, [navigate]);
